@@ -1,5 +1,5 @@
-<head>
-    <title>Welcome to Watermark</title>
-</head>
+{% extends 'cards/base.html' %}
+{% block content %}
 <p>This is the splash page.</p>
 <a href="{% url 'cards:login' %}">This should go to the login page.</a>
+{% endblock %}
