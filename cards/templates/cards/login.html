@@ -1,7 +1,12 @@
 {% extends 'cards/base.html' %}
 
 {% block content %}
-<p>
-    This is the login page
-</p>
+<form action="{% url 'cards:login' %}" method="post">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="Submit" />
+    </form>
+<a href="{% url 'cards:register' %}">Don't have an account?</a>
 {% endblock %}

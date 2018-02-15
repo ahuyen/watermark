@@ -1,4 +1,4 @@
-{% extends 'cards:base.html' %}
+{% extends 'cards/base.html' %}
 {% block content %}
 <form action="{% url 'cards:register' %}" method="post">
     {% csrf_token %}

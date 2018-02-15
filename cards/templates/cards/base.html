@@ -2,12 +2,24 @@
 <html lang="en">
 <head>
     <!-- <link rel="stylesheet" href="style.css" /> -->
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            display: flex;
+            flex-direction:column;
+            max-width: 700px;
+        }
+    </style>
     <title>{% block title %}Watermark{% endblock %}</title>
 </head>
 
 <body>
-    <div id="content">
+    <div id="content" class="container">
         {% block content %}This page seems to be blank.{% endblock %}
     </div>
 </body>
+    {% block scripts %}{% endblock %}
 </html>

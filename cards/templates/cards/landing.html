@@ -1,0 +1,15 @@
+{% extends 'cards/base.html' %}
+{% block content %}
+
+Thank you for signing up!
+You will be redirected in 5 seconds.
+
+{% endblock%}
+{% block scripts%}
+<script>
+    function redirect() {
+        window.location.href="{% url 'cards:splash' %}"
+    }
+    setTimeout(redirect, 5000)
+</script>
+{% endblock %}
