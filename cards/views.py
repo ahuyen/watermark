@@ -39,7 +39,6 @@ class RegistrationView(FormView):
         print("Valid form!")
         print(form.cleaned_data)
         data = form.cleaned_data
-        # user = WatermarkUser(email=data['email'], username=data['username'], password=data['password1'])
         user = WatermarkUser.objects.create_user(email=data['email'],username=data['username'],password=data['password1'])
         user.save()
         return super().form_valid(form)
@@ -69,10 +68,10 @@ class LoginView(FormView):
     def form_invalid(self, form):
         print("failed")
         print(form.cleaned_data)
-        return super().form_valid(form)
+        return super().form_invalid(form)
 
 def logged_in(request):
     if request.user.is_authenticated:
-        return HttpResponse("You're logged in")
+        return HttpResponse("You're logged in as {}".format(request.user.username))
     else:
         return HttpResponse("You're not logged in")

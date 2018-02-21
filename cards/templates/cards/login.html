@@ -1,12 +1,16 @@
 {% extends 'cards/base.html' %}
 
 {% block content %}
-<form action="{% url 'cards:login' %}" method="post">
+<div class="logo-container">
+    <h1>Watermark Logo</h1>
+</div>
+<form action="{% url 'cards:login' %}" method="post" class="login-form">
         {% csrf_token %}
         <table>
             {{ form.as_table }}
         </table>
         <input type="submit" value="Submit" />
     </form>
+<a href="">Reset password</a>
 <a href="{% url 'cards:register' %}">Don't have an account?</a>
 {% endblock %}
