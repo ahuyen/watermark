@@ -7,5 +7,10 @@ urlpatterns = [
     path('login', views.LoginView.as_view(), name='login'),
     path('signup', views.RegistrationView.as_view(), name='register'),
     path('thankyou', views.RegistrationLandingView.as_view(), name='landing'),
-    path('checklogin', views.logged_in, name='checklogin')
+    path('checklogin', views.logged_in, name='checklogin'),
+    path('profile', views.ProfileView.as_view(), name='profile'),
+    path('create_card', views.create_card, name='card-create'),
+    path('delete_card', views.delete_card, name='card-delete')
+    # path('profile'),
+    # path('wallets'),
 ]

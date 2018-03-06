@@ -2,7 +2,7 @@
 {% block content %}
 
 Thank you for signing up!
-You will be redirected in 5 seconds.
+You will be redirected in 3 seconds.
 
 {% endblock%}
 {% block scripts%}
@@ -10,6 +10,6 @@ You will be redirected in 5 seconds.
     function redirect() {
         window.location.href="{% url 'cards:splash' %}"
     }
-    setTimeout(redirect, 5000)
+    setTimeout(redirect, 3000)
 </script>
 {% endblock %}

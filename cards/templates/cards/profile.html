@@ -1,0 +1,60 @@
+{% extends 'cards/base.html' %}
+{% block style %}
+<style>
+    .card-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    [id^=card-code] {
+        width: 100px;
+        height: 100px;
+    }
+
+    .card {
+        width: 43%;
+        margin: 1%
+    }
+</style>
+{% endblock %}
+{% block content %}
+<h1>Welcome, {{ user }}</h1>
+{% if view.get_cards %}
+<div class="card-container">
+    {% for card in view.get_cards %}
+    <div class="card shadow">
+        <div>{{ card.name }}</div>
+        <div id="card-code-{{ card.id }}" class="qr-view">
+            <div style="display:none;">{{ card.id }}</div>
+        </div>
+        <div>
+            {{ card.text }}
+        </div>
+        {% if card.id == view.default_card %}
+        <div>This is the default card.</div>
+        {% endif %}
+        <button onclick="deleteCard('{{ card.id }}')">Delete</button>
+    </div>
+    {% endfor %}
+    <div class="card shadow">
+        <button onclick="createCard()">Add Card</button>
+    </div>
+</div>
+{% else %}
+<div>No cards found for {{ user }}</div>
+{% endif %}
+{% endblock %}
+{% block scripts %}
+
+<script>
+    let user = "{{ user }}"
+</script>
+{% load static %}
+<script src="{% static 'cards/scripts/cookie.js' %}"></script>
+<script src="{% static 'cards/scripts/qrcode.js' %}"></script>
+<script src="{% static 'cards/scripts/profile.js' %}"></script>
+
+{% endblock %}

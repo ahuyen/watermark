@@ -13,6 +13,9 @@
             display: flex;
             flex-direction:column;
             width: 700px;
+        }
+        
+        .shadow {
             box-shadow: 2px 2px 5px 0px rgba(191,191,191,1);
             padding: 15px;
         }
@@ -29,11 +32,13 @@
             width: 600px;
         }
     </style>
+    {% block style %}
+    {% endblock %}
     <title>{% block title %}Watermark{% endblock %}</title>
 </head>
 
 <body>
-    <div id="content" class="container">
+    <div id="content" class="container shadow">
         {% block content %}This page seems to be blank.{% endblock %}
     </div>
 </body>
