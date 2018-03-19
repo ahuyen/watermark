@@ -22,6 +22,7 @@
 {% endblock %}
 {% block content %}
 <h1>Welcome, {{ user }}</h1>
+<video id="scan-view"></video>
 {% if view.get_cards %}
 <div class="card-container">
     {% for card in view.get_cards %}
@@ -54,10 +55,26 @@
 
 <script>
     let user = "{{ user }}"
+    function instascan_ready() {
+        console.log("Instascan ready!")
+        let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+        scanner.addListener('scan', function (content) {
+          console.log(content);
+        });
+        Instascan.Camera.getCameras().then(function (cameras) {
+          if (cameras.length > 0) {
+            scanner.start(cameras[0]);
+          } else {
+            console.error('No cameras found.');
+          }
+        }).catch(function (e) {
+          console.error(e);
+        });
+    }
 </script>
 {% load static %}
 <script src="{% static 'cards/scripts/cookie.js' %}"></script>
 <script src="{% static 'cards/scripts/qrcode.js' %}"></script>
 <script src="{% static 'cards/scripts/profile.js' %}"></script>
-
+<script onload="instascan_ready()" src="{% static 'cards/scripts/instascan.min.js' %}"></script>
 {% endblock %}
