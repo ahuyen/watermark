@@ -1,5 +1,4 @@
-{% extends 'cards/base.html' %}
-{% block style %}
+{% extends 'cards/base.html' %} {% block style %}
 <style>
     .card-container {
         display: flex;
@@ -19,10 +18,11 @@
         margin: 1%
     }
 </style>
-{% endblock %}
-{% block content %}
+{% endblock %} {% block content %}
 <h1>Welcome, {{ user }}</h1>
-<video id="scan-view"></video>
+<video id="scan-view">
+</video>
+<button id="scan-button" onclick="launch_instascan()" disabled>Scan</button>
 {% if view.get_cards %}
 <div class="card-container">
     {% for card in view.get_cards %}
@@ -47,34 +47,37 @@
 {% else %}
 <div>No cards found for {{ user }}</div>
 <div class="card shadow">
-        <button onclick="createCard()">Add Card</button>
+    <button onclick="createCard()">Add Card</button>
 </div>
-{% endif %}
-{% endblock %}
-{% block scripts %}
+{% endif %} {% endblock %} {% block scripts %}
 
 <script>
     let user = "{{ user }}"
     function instascan_ready() {
         console.log("Instascan ready!")
-        let scanner = new Instascan.Scanner({ video: document.getElementById('scan-view') });
+        document.querySelector("#scan-button").disabled = false
+    }
+    function launch_instascan() {
+        let options = { 
+            video: document.getElementById('scan-view'), 
+            backgroundScan: false
+        }
+        let scanner = new Instascan.Scanner(options);
         scanner.addListener('scan', function (content) {
-          console.log(content);
+            alert(content)
         });
         Instascan.Camera.getCameras().then(function (cameras) {
-          if (cameras.length > 0) {
-            scanner.start(cameras[0]);
-          } else {
-            console.error('No cameras found.');
-          }
+            if (cameras.length > 0) {
+                scanner.start(cameras[0]);
+            } else {
+                console.error('No cameras found.');
+            }
         }).catch(function (e) {
-          console.error(e);
+            console.error(e);
         });
     }
-</script>
-{% load static %}
+</script> {% load static %}
 <script src="{% static 'cards/scripts/cookie.js' %}"></script>
 <script src="{% static 'cards/scripts/qrcode.js' %}"></script>
 <script src="{% static 'cards/scripts/profile.js' %}"></script>
-<script onload="instascan_ready()" src="{% static 'cards/scripts/instascan.min.js' %}"></script>
-{% endblock %}
+<script onload="instascan_ready()" src="{% static 'cards/scripts/instascan.min.js' %}"></script> {% endblock %}
