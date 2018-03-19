@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 from django.views import generic
+from django.urls import reverse_lazy
 from .forms import RegistrationForm, LoginForm
 from .models import WatermarkUser, UserCard, Wallet
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
@@ -99,7 +100,7 @@ class RegistrationView(FormView):
 class LoginView(FormView):
     template_name = "cards/login.html"
     form_class = LoginForm
-    success_url = "/"
+    success_url = reverse_lazy("cards:profile")
 
     def form_valid(self, form):
         print("Login submitted")
