@@ -44,6 +44,10 @@ class ProfileView(generic.TemplateView):
         user = WatermarkUser.objects.get(username=self.request.user)
         return user.profile.default_card.id
 
+    def get_context_data(self, **kwargs):
+        context = super(ProfileView, self).get_context_data(**kwargs)
+        # context['user']
+        return context
 
 def get_cards(request):
     if request.user:

@@ -10,7 +10,7 @@ class WatermarkUser(User):
 
 class UserCard(models.Model):
     id = models.AutoField(db_index=True, primary_key=True)
-    owner = models.ForeignKey(WatermarkUser, on_delete=models.CASCADE)
+    owner = models.ForeignKey(WatermarkUser, on_delete=models.SET_NULL, null=True)
     name = models.TextField(max_length=200, default='New Card')
     text = models.TextField(max_length=1000, default='Default text.')
     address_line_1 = models.TextField(max_length=1000, null=True)
@@ -27,7 +27,7 @@ class Wallet(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(WatermarkUser, on_delete=models.CASCADE)
     bio = models.TextField(max_length=10000)
-    default_card = models.OneToOneField(UserCard, on_delete=models.DO_NOTHING, null=True)
+    default_card = models.OneToOneField(UserCard, on_delete=models.SET_NULL, null=True)
     first_name = models.TextField(max_length=100, null=True)
     last_name = models.TextField(max_length=100, null=True)
     pass

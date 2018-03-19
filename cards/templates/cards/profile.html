@@ -45,6 +45,9 @@
 </div>
 {% else %}
 <div>No cards found for {{ user }}</div>
+<div class="card shadow">
+        <button onclick="createCard()">Add Card</button>
+</div>
 {% endif %}
 {% endblock %}
 {% block scripts %}
