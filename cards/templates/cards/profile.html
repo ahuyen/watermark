@@ -57,7 +57,7 @@
     let user = "{{ user }}"
     function instascan_ready() {
         console.log("Instascan ready!")
-        let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+        let scanner = new Instascan.Scanner({ video: document.getElementById('scan-view') });
         scanner.addListener('scan', function (content) {
           console.log(content);
         });
