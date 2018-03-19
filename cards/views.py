@@ -62,14 +62,14 @@ def create_card(request):
         if (user.profile.default_card is None):
             user.profile.default_card = card
             user.profile.save()
-        data = json.loads(request.body)
+        data = json.loads(request.body.decode('utf-8'))
         print(data['name'])
 
     return JsonResponse({'success': True})
 
 def delete_card(request):
     if request.user:
-        data = json.loads(request.body)
+        data = json.loads(request.body.decode('utf-8'))
         user = WatermarkUser.objects.get(username=request.user)
         card = UserCard.objects.get(id=data['id'])
         card.delete()
