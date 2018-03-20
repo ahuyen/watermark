@@ -10,7 +10,7 @@ urlpatterns = [
     path('checklogin', views.logged_in, name='checklogin'),
     path('profile', views.ProfileView.as_view(), name='profile'),
     path('create_card', views.create_card, name='card-create'),
-    path('delete_card', views.delete_card, name='card-delete')
-    # path('profile'),
+    path('delete_card', views.delete_card, name='card-delete'),
+    path('card/<str:id>', views.CardDetailView.as_view(), name='card-detail'),
     # path('wallets'),
 ]

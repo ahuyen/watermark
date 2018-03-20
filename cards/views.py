@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
+from django.views.generic.detail import DetailView
 from django.views import generic
 from django.urls import reverse_lazy
 from .forms import RegistrationForm, LoginForm
@@ -48,6 +49,14 @@ class ProfileView(generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super(ProfileView, self).get_context_data(**kwargs)
         # context['user']
+        return context
+
+class CardDetailView(generic.TemplateView):
+    template_name = "cards/carddetail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(CardDetailView, self).get_context_data(**kwargs)
+        context['id'] = self.kwargs.get('id')
         return context
 
 def get_cards(request):
