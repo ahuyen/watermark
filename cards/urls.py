@@ -12,5 +12,6 @@ urlpatterns = [
     path('create_card', views.create_card, name='card-create'),
     path('delete_card', views.delete_card, name='card-delete'),
     path('card/<str:id>', views.CardDetailView.as_view(), name='card-detail'),
+    path('wallet/<int:id>', views.WalletDetailView.as_view(),name='wallet-detail'),
     # path('wallets'),
 ]

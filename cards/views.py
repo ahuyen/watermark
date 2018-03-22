@@ -21,9 +21,6 @@ class RegistrationLandingView(TemplateView):
 class RegisterView(TemplateView):
     template_name = "cards/register.html"
 
-class WalletView(generic.ListView):
-    template_name = "cards/wallet.html"
-
 # def register(request):
 #     if request.method == 'POST':
 #         form = UserCreationForm(request.POST)
@@ -51,6 +48,10 @@ class ProfileView(generic.TemplateView):
         # context['user']
         return context
 
+    def get_wallets(self):
+        user = WatermarkUser.objects.get(username = self.request.user)
+        return user.wallet_set.all()
+
 class CardDetailView(generic.TemplateView):
     template_name = "cards/carddetail.html"
 
@@ -58,6 +59,9 @@ class CardDetailView(generic.TemplateView):
         context = super(CardDetailView, self).get_context_data(**kwargs)
         context['id'] = self.kwargs.get('id')
         return context
+
+class WalletDetailView(generic.TemplateView):
+    template_name = "cards/walletdetail.html"
 
 def get_cards(request):
     if request.user:

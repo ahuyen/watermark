@@ -1,0 +1,17 @@
+.card-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+}
+
+[id^=card-code] {
+    width: 100px;
+    height: 100px;
+}
+
+.card {
+    width: 43%;
+    margin: 1%
+}

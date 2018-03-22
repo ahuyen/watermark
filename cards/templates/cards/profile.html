@@ -1,24 +1,9 @@
-{% extends 'cards/base.html' %} {% block style %}
-<style>
-    .card-container {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    [id^=card-code] {
-        width: 100px;
-        height: 100px;
-    }
-
-    .card {
-        width: 43%;
-        margin: 1%
-    }
-</style>
-{% endblock %} {% block content %}
+{% extends 'cards/base.html' %} 
+{% block style %}
+{% load static%}
+<link rel="stylesheet" type="text/css" href="{% static 'cards/styles/profile.css' %}">
+{% endblock %} 
+{% block content %}
 <h1>Welcome, {{ user }}</h1>
 <video id="scan-view">
 </video>
@@ -50,56 +35,18 @@
 <div class="card shadow">
     <button onclick="createCard()">Add Card</button>
 </div>
-{% endif %} {% endblock %} {% block scripts %}
+{% endif %}  
+<div class="card-container">
+    {% for wallet in view.get_wallets %}
+    <div class="card shadow">
+        {{ wallet.name }}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+{% block scripts %}
 
-<script>
-    let user = "{{ user }}"
-    async function instascan_ready() {
-        console.log("Instascan ready!")        
-        document.querySelector("#scan-button").disabled = false
-        launch_instascan()
-    }
-
-
-
-    async function launch_instascan() {
-        let camera = (await Instascan.Camera.getCameras())[0]
-        let options = { 
-            video: document.getElementById('scan-view'), 
-            backgroundScan: false,
-            mirror: false
-        }
-        let scanner = new Instascan.Scanner(options);
-        scanner.addListener('scan', function (content) {
-            window.location.href = "card/" + content
-        });
-
-        let button = document.querySelector("#scan-button")
-        let stop = document.querySelector("#stop-button")
-        button.onclick = async function() {
-            await scanner.start(camera)
-            button.style.display = "none"
-            stop.style.display = "block"
-        }
-
-        stop.onclick = async function() {
-            await scanner.stop()
-            button.style.display = "block"
-            stop.style.display = "none"
-        }
-
-
-        /*Instascan.Camera.getCameras().then(function (cameras) {
-            if (cameras.length > 0) {
-                scanner.start(cameras[0]);
-            } else {
-                console.error('No cameras found.');
-            }
-        }).catch(function (e) {
-            console.error(e);
-        });*/
-    }
-</script> {% load static %}
+{% load static %}
 <script src="{% static 'cards/scripts/cookie.js' %}"></script>
 <script src="{% static 'cards/scripts/qrcode.js' %}"></script>
 <script src="{% static 'cards/scripts/profile.js' %}"></script>
